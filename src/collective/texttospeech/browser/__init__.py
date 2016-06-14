@@ -23,5 +23,7 @@ class HelperView(BrowserView):
                 interface=ITextToSpeechControlPanel, name='globally_enabled')
         except InvalidParameterError:
             globally_enabled = False
+        except KeyError:
+            globally_enabled = False
 
         return globally_enabled

@@ -66,6 +66,10 @@ class RegistryTestCase(unittest.TestCase):
         self.assertTrue(hasattr(self.settings, 'voice'))
         self.assertEqual(self.settings.voice, u'UK English Female')
 
+    def test_css_class_blacklist_record_in_registry(self):
+        self.assertTrue(hasattr(self.settings, 'css_class_blacklist'))
+        self.assertEqual(self.settings.css_class_blacklist, set([]))
+
     def test_records_removed_on_uninstall(self):
         qi = self.portal['portal_quickinstaller']
         qi.uninstallProducts(products=[PROJECTNAME])
@@ -74,6 +78,7 @@ class RegistryTestCase(unittest.TestCase):
             ITextToSpeechControlPanel.__identifier__ + '.globally_enabled',
             ITextToSpeechControlPanel.__identifier__ + '.enabled_content_types',
             ITextToSpeechControlPanel.__identifier__ + '.voice',
+            ITextToSpeechControlPanel.__identifier__ + '.css_class_blacklist',
         ]
 
         for r in records:

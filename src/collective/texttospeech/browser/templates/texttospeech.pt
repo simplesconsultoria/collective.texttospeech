@@ -5,7 +5,8 @@
      data-label-paused="Resume"
      data-error-message="Could not load ResponsiveVoice library; Text-To-Speech feature is disabled or is not available."
      tal:attributes="data-voice view/voice;
-                     data-enabled view/enabled"
+                     data-enabled view/enabled;
+                     data-blacklist view/blacklist"
      i18n:attributes="data-label-stopped;
                       data-label-playing;
                       data-label-paused;

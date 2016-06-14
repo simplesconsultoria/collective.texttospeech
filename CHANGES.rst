@@ -4,6 +4,10 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Review text extraction. Now we have a field in the controlpanel to manage a blacklist
+  of css classes.
+  [rodfersou]
+
 - To avoid displaying the 'Listen' button with an incorrect voice,
   the feature is now globally disabled by default at installation time.
   [hvelarde]

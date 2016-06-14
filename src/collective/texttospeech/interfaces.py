@@ -38,3 +38,15 @@ class ITextToSpeechControlPanel(form.Schema):
         required=True,
         default=u'UK English Female',
     )
+
+    form.widget('css_class_blacklist', cols=25, rows=10)
+    css_class_blacklist = schema.Set(
+        title=_(u'CSS class blacklist'),
+        description=_(
+            u'A list of CSS class identifiers that Text-to-Speech will ignore. '
+            u'elements with "pullquote" or "image-caption" class directly applied to them, will be skipped.'
+        ),
+        required=False,
+        default=set([]),
+        value_type=schema.ASCIILine(title=_(u'CSS class')),
+    )

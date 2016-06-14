@@ -77,7 +77,7 @@ class To3TestCase(UpgradeBaseTestCase):
 
     def test_registered_steps(self):
         steps = len(self.setup.listUpgrades(self.profile_id)[0])
-        self.assertEqual(steps, 3)
+        self.assertEqual(steps, 4)
 
     @unittest.skipIf(IS_PLONE_5, 'Upgrade step not supported under Plone 5')
     def test_update_library_condition(self):

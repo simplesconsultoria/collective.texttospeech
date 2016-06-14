@@ -2,6 +2,7 @@
 """Viewlets used on the package."""
 from collective.texttospeech.interfaces import ITextToSpeechControlPanel
 from plone import api
+from plone.api.exc import InvalidParameterError
 from plone.app.layout.viewlets.common import ViewletBase
 
 
@@ -27,3 +28,20 @@ class TextToSpeechViewlet(ViewletBase):
         return api.portal.get_registry_record(
             ITextToSpeechControlPanel.__identifier__ + '.voice'
         )
+
+    def blacklist(self):
+        record = dict(interface=ITextToSpeechControlPanel, name='css_class_blacklist')
+        try:
+            css_class_blacklist = api.portal.get_registry_record(**record)
+            if not css_class_blacklist:
+                css_class_blacklist = []
+            classes = [c for c in css_class_blacklist]
+            # ignore blockquotes
+            classes.append('pullquote')
+            # ignore image captions
+            classes.append('image-caption')
+        except InvalidParameterError:
+            return ''
+        except KeyError:
+            return ''
+        return ','.join(classes)

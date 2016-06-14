@@ -94,3 +94,18 @@ A viewlet with a 'Listen' button will be displayed on objects with the feature e
     The Text-To-Speech feature enabled.
 
 You can pause/resume the reader at any time by selecting 'Pause'/'Resume'.
+
+How does it work
+----------------
+
+Text to speech extract the text of the page, and send the text to `ResponsiveVoice <http://responsivevoice.org/>`_ to play the text.
+
+By default, the text extraction need to ignore some elements that should not be played:
+
+* Blockquotes
+* IFrames
+* Image captions
+
+And there are other custom elements that should be ignored, to manage these custom elements we use a blacklist.
+
+The blacklist is filled into the package configlet and should be filled with one CSS selector by line that should be ignored.
