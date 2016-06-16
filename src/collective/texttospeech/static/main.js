@@ -14,23 +14,27 @@ var MainView = (function() {
   MainView.prototype.onstart = function() {
     this.playing = true;
     this.paused = false;
-    this.$button.attr('value', this.label_playing);
+    this.$button.html(this.label_playing);
+    this.$button.attr('class', 'playing');
   };
   MainView.prototype.onend = function() {
     this.playing = false;
     this.paused = true;
-    this.$button.attr('value', this.label_stopped);
+    this.$button.html(this.label_stopped);
+    this.$button.attr('class', 'stopped');
   };
   MainView.prototype.play_pause = function(e) {
     e.preventDefault();
     if (this.playing) {
       if (this.paused) {
         this.paused = false;
-        this.$button.attr('value', this.label_playing);
+        this.$button.html(this.label_playing);
+        this.$button.attr('class', 'playing');
         responsiveVoice.resume();
       } else {
         this.paused = true;
-        this.$button.attr('value', this.label_paused);
+        this.$button.html(this.label_paused);
+        this.$button.attr('class', 'paused');
         responsiveVoice.pause();
       }
     } else {

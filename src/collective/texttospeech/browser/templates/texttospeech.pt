@@ -1,8 +1,8 @@
 <div i18n:domain="collective.texttospeech"
      id="viewlet-texttospeech"
-     data-label-stopped="🔊 Listen"
-     data-label-playing="⏸ Pause"
-     data-label-paused="▶ Resume"
+     data-label-stopped="Listen"
+     data-label-playing="Pause"
+     data-label-paused="Resume"
      data-error-message="Could not load ResponsiveVoice library; Text-To-Speech feature is disabled or is not available."
      tal:attributes="data-voice view/voice;
                      data-enabled view/enabled"
@@ -10,11 +10,11 @@
                       data-label-playing;
                       data-label-paused;
                       data-error-message">
-     <input id="texttospeech-button"
+     <button id="texttospeech-button"
           class="stopped"
           type="button"
-          value="🔊 Listen"
           title="Speech synthesis control"
           tal:condition="view/enabled"
-          i18n:attributes="value; title" />
+          i18n:attributes="title"
+          i18n:translate="">Listen</button>
 </div>
