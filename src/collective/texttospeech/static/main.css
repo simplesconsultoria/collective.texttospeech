@@ -12,3 +12,15 @@
 {
     cursor: pointer;
 }
+#texttospeech-button.stopped:before
+{
+    content: "🔊 ";
+}
+#texttospeech-button.playing:before
+{
+    content: "⏸ ";
+}
+#texttospeech-button.paused:before
+{
+    content: "▶ ";
+}
