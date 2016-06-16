@@ -44,7 +44,7 @@ Known Issues
 For more information, see `ResponsiveVoice FAQ <http://responsivevoice.org/faq/>`_.
 
 Some browser add-ons (e.g., `Privacy Badger <https://www.eff.org/privacybadger>`_), could block ResponsiveVoice library disabling the Text-to-Speech feature.
-In those cases the '🔊 Listen' button will not be available,
+In those cases the 'Listen' button will not be available,
 neither the Text-To-Speech control panel configlet will work.
 
 Don't Panic
@@ -84,7 +84,7 @@ Select which content types will have the feature enabled and select which voice 
 
     The Text-To-Speech control panel configlet.
 
-A viewlet with a '🔊 Listen' button will be displayed on objects with the feature enabled.
+A viewlet with a 'Listen' button will be displayed on objects with the feature enabled.
 
 .. figure:: https://raw.githubusercontent.com/collective/collective.texttospeech/master/docs/viewlet.png
     :align: center
@@ -93,4 +93,4 @@ A viewlet with a '🔊 Listen' button will be displayed on objects with the feat
 
     The Text-To-Speech feature enabled.
 
-You can pause/resume the reader at any time by selecting '⏸ Pause'/'▶ Resume'.
+You can pause/resume the reader at any time by selecting 'Pause'/'Resume'.

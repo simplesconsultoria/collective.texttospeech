@@ -12,7 +12,7 @@ Suite Teardown  Close all browsers
 ${CONFIGLET_URL}  ${PLONE_URL}/@@texttospeech-settings
 ${TEST_DOC_URL}  ${PLONE_URL}/test
 ${globally_enabled_selector}  input#form-widgets-globally_enabled-0
-${viewlet_button_selector}  div#viewlet-texttospeech > input
+${viewlet_button_selector}  div#viewlet-texttospeech > button
 
 *** Test cases ***
 
@@ -21,7 +21,7 @@ Test Text-To-Speech
 
     # open the configlet and enable the feature
     Go to  ${CONFIGLET_URL}
-    Wait Until Page Contains  Enable Text-to-Speech?
+    Page Should Contain  Enable Text-to-Speech?
     Select Checkbox  css=${globally_enabled_selector}
     Click Button  Save
     Page Should Contain  Changes saved
@@ -36,7 +36,7 @@ Test Text-To-Speech
     Wait Until Element Is Visible  css=${viewlet_button_selector}
 
     # test the reader
-    Click Button  🔊 Listen
+    Click Button  Listen
     Sleep  5  Wait for ResponsiveVoice to read the text
 
     # TODO: test interaction with the reader

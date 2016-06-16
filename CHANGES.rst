@@ -4,14 +4,14 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
-- To avoid displaying the '🔊 Listen' button with an incorrect voice,
+- To avoid displaying the 'Listen' button with an incorrect voice,
   the feature is now globally disabled by default at installation time.
   [hvelarde]
 
 - ResponsiveVoice library is now only loaded when needed.
   [hvelarde]
 
-- The '🔊 Listen' button is now shown only after ResponsiveVoice library has been loaded.
+- The 'Listen' button is now shown only after ResponsiveVoice library has been loaded.
   [rodfersou]
 
 
