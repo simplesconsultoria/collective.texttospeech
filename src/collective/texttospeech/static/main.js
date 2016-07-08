@@ -26,20 +26,28 @@ var MainView = (function() {
     this.$button.attr('class', 'stopped');
   };
   MainView.prototype.is_invisible = function($el) {
+    // check if element is not visible
     return $el.is(':visible') === false;
   };
   MainView.prototype.is_blacklisted = function($el) {
     // check if element, or a parent, has applied a class that must be skipped
     var i, len, selector;
-    var ignore = false;
     for (i = 0, len = this.blacklist.length; i < len; i++) {
       selector = '.' + this.blacklist[i];
-      if ($el.is(selector) || $el.parents(selector).length > 0) {
-        ignore = true;
-        break;
+      if ($el.is(selector)) {
+        return true;
       }
     }
-    return ignore;
+    return false;
+  };
+  MainView.prototype.is_valid_element = function(el) {
+    // check if element is a text or any container (ex.: <div> <p>)
+    // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType#Node_type_constants
+    var valid_types = [
+      Node.ELEMENT_NODE,
+      Node.TEXT_NODE
+    ];
+    return valid_types.indexOf(el.nodeType) >= 0;
   };
   MainView.prototype.has_ending_punctuation = function(text) {
     // check if the text ends with a punctuation mark (simplified list)
@@ -47,37 +55,83 @@ var MainView = (function() {
     return /[.,;:!?—]$/.test(text);
   };
   MainView.prototype.remove_extra_spaces = function(text) {
+    // remove extra spaces into text
     text = text.replace(/\s+/g, ' ');
     text = text.trim();
     return text
   };
-  MainView.prototype.extract_text = function() {
-    var i, len, ref, results, $el, text;
-    results = [];
-    // get all leaf nodes inside the content
-    // http://stackoverflow.com/a/4602476/644075
-    ref = $('#content *:not(:has(*))');
+  MainView.prototype.has_valid_text = function($node) {
+    // check if node has any valid text element
+    var i, len, ref, el;
+    ref = $node.contents();
     for (i = 0, len = ref.length; i < len; i++) {
-      $el = $(ref[i]);
-      if (this.is_invisible($el) || this.is_blacklisted($el)) {
-        continue;
+      el = ref[i];
+      if (el.nodeType === Node.TEXT_NODE &&
+          el.textContent.replace(/[.,;:!?()—\r\n\s]*/g, '') !== '') {
+        return true;
       }
-      text = $el.text();
-      text = this.remove_extra_spaces(text);
-      // ignore empty lines
-      if (text.length === 0) {
-        continue;
-      }
-      // ensure there is a pause after every line adding a period
-      if (!this.has_ending_punctuation(text)) {
-        text += '.';
-      }
-      results.push(text);
     }
-    // join array with texts
-    return results.join(' ');
+    return false;
+  };
+  MainView.prototype.remove_invisible_items = function(child) {
+    // recursive method used in conjunction with walk_tree to remove invisible elements
+    $child = $(child);
+    if (child.nodeType === Node.ELEMENT_NODE &&
+        this.is_invisible($child) === false) {
+      $child.remove();
+      return;
+    }
+    this.walk_tree($child, this.remove_invisible_items);
+  };
+  MainView.prototype.extract_element_text = function(child) {
+    // recursive method used in conjunction with walk_tree to extract texts
+    $child = $(child);
+    if (this.is_valid_element(child) === false ||
+        this.is_invisible($child)    === true  ||
+        this.is_blacklisted($child)  === true) {
+      return;
+    }
+    if (child.nodeType === Node.TEXT_NODE) {
+      text = $child.text();
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      if (this.has_valid_text($child) === true) {
+        var $clone = $child.clone();
+        this.walk_tree($clone, this.remove_invisible_items);
+        text = $clone.text();
+      } else {
+        this.walk_tree($child, this.extract_element_text);
+        return;
+      }
+    }
+    text = this.remove_extra_spaces(text);
+    // remove empty lines
+    if (text.replace(/[.,;:!?()—\r\n\s]*/g, '') === '') {
+      return;
+    }
+    // ensure there is a pause after every line adding a period
+    if (this.has_ending_punctuation(text) === false) {
+      text += '.';
+    }
+    this.results.push(text);
+  };
+  MainView.prototype.walk_tree = function($node, callback) {
+    // this method recursivelly walks into elements tree and call callback method
+    var i, len, child, $child, text;
+    var ref = $node.contents();
+    for (i = 0, len = ref.length; i < len; i++) {
+      child = ref[i];
+      callback.call(this, child);
+    }
+  };
+  MainView.prototype.extract_text = function() {
+    // extract page text
+    var i, len, $el, text, byline_added;
+    this.results = [];
+    this.walk_tree($('#content'), this.extract_element_text);
+    return this.results.join(' ');
   };
   MainView.prototype.play_pause = function(e) {
+    // play/pause button
     e.preventDefault();
     if (this.playing) {
       if (this.paused) {
