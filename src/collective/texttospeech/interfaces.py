@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from collective.texttospeech import _
+from collective.texttospeech.config import DEFAULT_CSS_CLASS_BLACKLIST
 from collective.texttospeech.config import DEFAULT_ENABLED_CONTENT_TYPES
 from plone.directives import form
 from zope import schema
@@ -43,10 +44,12 @@ class ITextToSpeechControlPanel(form.Schema):
     css_class_blacklist = schema.Set(
         title=_(u'CSS class blacklist'),
         description=_(
-            u'A list of CSS class identifiers that Text-to-Speech will ignore. '
-            u'elements with "pullquote" or "image-caption" class directly applied to them, will be skipped.'
+            u'A list of CSS class identifiers that will be ignored on speech_synthesis. '
+            u'Elements with any of these classes directly applied to them, or to a parent element, will be skipped. '
+            u'Default values include image captions ("image-caption") and side quotes ("pullquote").',
         ),
         required=False,
-        default=set([]),
+        default=DEFAULT_CSS_CLASS_BLACKLIST,
         value_type=schema.ASCIILine(title=_(u'CSS class')),
+        # TODO: validate values
     )

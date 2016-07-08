@@ -29,6 +29,7 @@ var MainView = (function() {
     return $el.is(':visible') === false;
   };
   MainView.prototype.is_blacklisted = function($el) {
+    // check if element, or a parent, has applied a class that must be skipped
     var i, len, selector;
     var ignore = false;
     for (i = 0, len = this.blacklist.length; i < len; i++) {
@@ -41,7 +42,8 @@ var MainView = (function() {
     return ignore;
   };
   MainView.prototype.has_ending_punctuation = function(text) {
-    // regex test if the text end with one of these punctuations ". , ; : ! ? -"
+    // check if the text ends with a punctuation mark (simplified list)
+    // http://stackoverflow.com/a/29226668/644075 (complete list)
     return /[.,;:!?—]$/.test(text);
   };
   MainView.prototype.remove_extra_spaces = function(text) {
@@ -51,9 +53,9 @@ var MainView = (function() {
   };
   MainView.prototype.extract_text = function() {
     var i, len, ref, results, $el, text;
-    // create an array with the text extracted
     results = [];
-    // http://stackoverflow.com/questions/4602431/what-is-the-most-efficient-way-to-get-leaf-nodes-with-jquery
+    // get all leaf nodes inside the content
+    // http://stackoverflow.com/a/4602476/644075
     ref = $('#content *:not(:has(*))');
     for (i = 0, len = ref.length; i < len; i++) {
       $el = $(ref[i]);

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from collective.texttospeech.config import DEFAULT_CSS_CLASS_BLACKLIST
 from collective.texttospeech.config import DEFAULT_ENABLED_CONTENT_TYPES
 from collective.texttospeech.config import PROJECTNAME
 from collective.texttospeech.interfaces import ITextToSpeechControlPanel
@@ -68,7 +69,7 @@ class RegistryTestCase(unittest.TestCase):
 
     def test_css_class_blacklist_record_in_registry(self):
         self.assertTrue(hasattr(self.settings, 'css_class_blacklist'))
-        self.assertEqual(self.settings.css_class_blacklist, set([]))
+        self.assertEqual(self.settings.css_class_blacklist, DEFAULT_CSS_CLASS_BLACKLIST)
 
     def test_records_removed_on_uninstall(self):
         qi = self.portal['portal_quickinstaller']

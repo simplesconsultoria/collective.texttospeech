@@ -97,3 +97,24 @@ class To3TestCase(UpgradeBaseTestCase):
         # run the upgrade step to validate the update
         self._do_upgrade(step)
         self.assertEqual(resource.getExpression(), EXPRESSION)
+
+    def test_add_css_class_blacklist_field(self):
+        # check if the upgrade step is registered
+        title = u'Add CSS class blacklist field to registry'
+        step = self._get_upgrade_step_by_title(title)
+        assert step is not None
+
+        # simulate state on previous version
+        from collective.texttospeech.config import DEFAULT_CSS_CLASS_BLACKLIST
+        from collective.texttospeech.interfaces import ITextToSpeechControlPanel
+        from plone.registry.interfaces import IRegistry
+        from zope.component import getUtility
+        registry = getUtility(IRegistry)
+        record = ITextToSpeechControlPanel.__identifier__ + '.css_class_blacklist'
+        del registry.records[record]
+        assert record not in registry
+
+        # run the upgrade step to validate the update
+        self._do_upgrade(step)
+        self.assertIn(record, registry)
+        self.assertEqual(registry[record], DEFAULT_CSS_CLASS_BLACKLIST)

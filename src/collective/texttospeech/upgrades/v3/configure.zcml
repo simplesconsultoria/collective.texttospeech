@@ -26,7 +26,7 @@
         />
 
     <genericsetup:upgradeDepends
-        title="Add new field to configlet"
+        title="Add CSS class blacklist field to registry"
         description="Reload registration of configlet registry to add new field."
         import_steps="plone.app.registry"
         run_deps="false"

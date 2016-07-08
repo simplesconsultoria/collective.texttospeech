@@ -22,8 +22,8 @@ class HelperView(BrowserView):
             globally_enabled = api.portal.get_registry_record(
                 interface=ITextToSpeechControlPanel, name='globally_enabled')
         except InvalidParameterError:
-            globally_enabled = False
-        except KeyError:
+            # avoid breaking page rendering if record is not present
+            # this could happen on upgrades or accidental deletions
             globally_enabled = False
 
         return globally_enabled

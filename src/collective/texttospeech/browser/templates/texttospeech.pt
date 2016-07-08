@@ -1,4 +1,5 @@
 <div i18n:domain="collective.texttospeech"
+     tal:on-error="nothing"
      id="viewlet-texttospeech"
      data-label-stopped="Listen"
      data-label-playing="Pause"

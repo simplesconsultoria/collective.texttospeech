@@ -70,6 +70,27 @@ Go to the 'Site Setup' page in a Plone site and click on the 'Add-ons' link.
 
 Check the box next to ``collective.texttospeech`` and click the 'Activate' button.
 
+How does it work
+----------------
+
+We use JavaScript to extract all text inside an element with ``id="content"`` in the page.
+The text extraction will ignore any <iframe> elements present.
+Currently, <img> elements are neither processed but that could change in the future.
+
+It is possible to avoid reading some text that,
+regardless being present on the text flow,
+make little sense on the reading flow.
+Examples of this are image captions and side quotes.
+
+We have included a list of CSS classes that can be blacklisted to implement this feature.
+The list is configurable via an option in the control panel configlet.
+Any text inside an element with one of those CSS classes applied will be ignored.
+
+The blacklist defaults to some CSS classes used in Plone 4:
+
+* ``image-caption``: used for image captions
+* ``pullquote``: used for side quotes
+
 Usage
 -----
 
@@ -94,18 +115,3 @@ A viewlet with a 'Listen' button will be displayed on objects with the feature e
     The Text-To-Speech feature enabled.
 
 You can pause/resume the reader at any time by selecting 'Pause'/'Resume'.
-
-How does it work
-----------------
-
-Text to speech extract the text of the page, and send the text to `ResponsiveVoice <http://responsivevoice.org/>`_ to play the text.
-
-By default, the text extraction need to ignore some elements that should not be played:
-
-* Blockquotes
-* IFrames
-* Image captions
-
-And there are other custom elements that should be ignored, to manage these custom elements we use a blacklist.
-
-The blacklist is filled into the package configlet and should be filled with one CSS selector by line that should be ignored.
