@@ -55,7 +55,7 @@ class InstallTestCase(unittest.TestCase):
         profile = PROJECTNAME + ':default'
         setup_tool = self.portal['portal_setup']
         self.assertEqual(
-            setup_tool.getLastVersionForProfile(profile), (u'3',))
+            setup_tool.getLastVersionForProfile(profile), (u'4',))
 
 
 class UninstallTestCase(unittest.TestCase):

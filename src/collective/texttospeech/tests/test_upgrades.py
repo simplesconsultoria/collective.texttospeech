@@ -118,3 +118,17 @@ class To3TestCase(UpgradeBaseTestCase):
         self._do_upgrade(step)
         self.assertIn(record, registry)
         self.assertEqual(registry[record], DEFAULT_CSS_CLASS_BLACKLIST)
+
+
+class To4TestCase(UpgradeBaseTestCase):
+
+    from_ = '3'
+    to_ = '4'
+
+    def test_profile_version(self):
+        version = self.setup.getLastVersionForProfile(self.profile_id)[0]
+        self.assertEqual(version, self.from_)
+
+    def test_registered_steps(self):
+        steps = len(self.setup.listUpgrades(self.profile_id)[0])
+        self.assertEqual(steps, 1)

@@ -4,6 +4,9 @@ Changelog
 1.0b3 (unreleased)
 ------------------
 
+- Ignore iframes explicitly.
+  [rodfersou]
+
 - Show the 'Listen' button to anonymous users only.
   [hvelarde]
 

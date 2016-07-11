@@ -41,6 +41,10 @@ var MainView = (function() {
     return false;
   };
   MainView.prototype.is_valid_element = function(el) {
+    // Explicity ignore iframes
+    if (el.tagName === 'IFRAME') {
+      return false;
+    }
     // check if element is a text or any container (ex.: <div> <p>)
     // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType#Node_type_constants
     var valid_types = [
