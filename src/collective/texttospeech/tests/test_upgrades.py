@@ -131,4 +131,4 @@ class To4TestCase(UpgradeBaseTestCase):
 
     def test_registered_steps(self):
         steps = len(self.setup.listUpgrades(self.profile_id)[0])
-        self.assertEqual(steps, 1)
+        self.assertEqual(steps, 2)
