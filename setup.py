@@ -45,6 +45,7 @@ setup(
         'plone.directives.form',
         'Products.CMFPlone >=4.3',
         'Products.GenericSetup',
+        'Products.ResourceRegistries >=2.2.12',
         'setuptools',
         'zope.i18nmessageid',
         'zope.interface',

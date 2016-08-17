@@ -4,7 +4,8 @@ Changelog
 1.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Pin version of Products.ResourceRegistries >=2.2.12 to fix upgrade step.
+  [rodfersou, hvelarde]
 
 
 1.0rc1 (2016-07-11)

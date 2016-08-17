@@ -15,8 +15,6 @@ def pin_responsivevoice(setup_tool):
 
     portal_js = api.portal.get_tool('portal_javascripts')
     if OLD_JS in portal_js.getResourceIds():
-        # HACK: can not use portal_js.renameResource
-        #       see: https://github.com/plone/Products.ResourceRegistries/pull/20
-        portal_js.getResource(OLD_JS)._data['id'] = NEW_JS
+        portal_js.renameResource(OLD_JS, NEW_JS)
         assert NEW_JS in portal_js.getResourceIds()
         logger.info('ResponsiveVoice version updated to 1.4.')
