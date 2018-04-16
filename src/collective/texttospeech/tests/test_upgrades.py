@@ -132,3 +132,36 @@ class To4TestCase(UpgradeBaseTestCase):
     def test_registered_steps(self):
         steps = len(self.setup.listUpgrades(self.profile_id)[0])
         self.assertEqual(steps, 2)
+
+
+class To5TestCase(UpgradeBaseTestCase):
+
+    from_ = '4'
+    to_ = '5'
+
+    def test_profile_version(self):
+        version = self.setup.getLastVersionForProfile(self.profile_id)[0]
+        self.assertEqual(version, self.from_)
+
+    def test_registered_steps(self):
+        steps = len(self.setup.listUpgrades(self.profile_id)[0])
+        self.assertEqual(steps, 2)
+
+    @unittest.skipIf(IS_PLONE_5, 'Upgrade step not supported under Plone 5')
+    def test_pin_responsivevoice(self):
+        # check if the upgrade step is registered
+        title = u'Use version 1.5 of the ResponsiveVoice API'
+        step = self._get_upgrade_step_by_title(title)
+        assert step is not None
+
+        # simulate state on previous version
+        from collective.texttospeech.upgrades.v5 import NEW_JS
+        from collective.texttospeech.upgrades.v5 import OLD_JS
+        portal_js = api.portal.get_tool('portal_javascripts')
+        portal_js.renameResource(NEW_JS, OLD_JS)
+        assert OLD_JS in portal_js.getResourceIds()
+
+        # run the upgrade step to validate the update
+        self._do_upgrade(step)
+        self.assertNotIn(OLD_JS, portal_js.getResourceIds())
+        self.assertIn(NEW_JS, portal_js.getResourceIds())

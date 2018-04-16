@@ -4,6 +4,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Use version 1.5 of the ResponsiveVoice API.
+  [rodfersou]
+
 - Drop support for Plone 5.0.
   [hvelarde]
 

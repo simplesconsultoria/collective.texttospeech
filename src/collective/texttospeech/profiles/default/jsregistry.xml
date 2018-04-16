@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
-  <javascript id="//code.responsivevoice.org/1.4/responsivevoice.js"
+  <javascript id="//code.responsivevoice.org/1.5/responsivevoice.js"
       cacheable="False" compression="none" cookable="False" enabled="True"
       expression="portal/@@texttospeech-helper/enabled" inline="False" authenticated="False" insert-after="*" />
   <javascript id="++resource++collective.texttospeech/main.js"

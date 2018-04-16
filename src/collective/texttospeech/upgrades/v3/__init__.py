@@ -4,7 +4,7 @@ from collective.texttospeech.logger import logger
 from plone import api
 
 
-JS = '//code.responsivevoice.org/1.4/responsivevoice.js'
+JS = '//code.responsivevoice.org/1.5/responsivevoice.js'
 EXPRESSION = 'portal/@@texttospeech-helper/enabled'
 
 
