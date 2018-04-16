@@ -5,6 +5,8 @@ cache:
   directories:
   - eggs
   - parts/node
+addons:
+  firefox: 45.8.0esr
 env:
 - PLONE_VERSION=4.3
 - PLONE_VERSION=5.0
