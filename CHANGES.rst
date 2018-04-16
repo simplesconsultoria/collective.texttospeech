@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.0 (unreleased)
+1.1 (unreleased)
 ----------------
+
+- Drop support for Plone 5.0.
+  [hvelarde]
 
 - Pin version of Products.ResourceRegistries >=2.2.12 to fix upgrade step.
   [rodfersou, hvelarde]
